@@ -266,7 +266,7 @@ function tarjetasHome() {
 const details_card = document.querySelector("details_card");
 
 function detalleCard(id) {
-   // console.log('CARGANDO DATA EN LOCALSTORAGE:', id);
+    // console.log('CARGANDO DATA EN LOCALSTORAGE:', id);
     for (let i = 0; i < ArrayData.eventos.length; i++) {
         if (ArrayData.eventos[i].id === parseInt(id)) {
             localStorage.clear();
@@ -280,3 +280,56 @@ function detalleCard(id) {
 
 newCard(ArrayData.eventos);
 tarjetasHome();
+
+
+// filtering data
+let categoriasUnique = [];
+
+function categoriasUnicas(data) {
+
+    data.eventos.forEach((evento) => {
+        if (!categoriasUnique.includes(evento.category)) {
+            categoriasUnique.push(evento.category);
+        }
+    });
+
+    //console.log(categoriasUnique);
+
+}
+
+categoriasUnicas(ArrayData);
+
+function newCategory(categoryUnique) {
+
+    const divCategory = document.createElement('div');
+    divCategory.innerHTML = `
+    <li class="nav-item" >
+                            <input type="checkbox" id="${categoryUnique}"  onclick="getValueCheckbox(event)" value="${categoryUnique}">
+                            <label for="${categoryUnique}">${categoryUnique}</label>
+                        </li>`
+
+
+    return divCategory;
+}
+
+function templateCategoryCheckboxHome() {
+
+    const rowCategory = document.querySelector('#templateCategory');
+
+    for (let i = 0; i < categoriasUnique.length; i++) {
+        const templateCategoryCheckbox = newCategory(categoriasUnique[i])
+        rowCategory.appendChild(templateCategoryCheckbox)
+    }
+}
+
+function getValueCheckbox(event) {
+    
+    console.log(event.target.value);
+
+}
+
+
+
+
+templateCategoryCheckboxHome();
+
