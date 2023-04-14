@@ -323,12 +323,34 @@ function templateCategoryCheckboxHome() {
 }
 
 function getValueCheckbox(event) {
-    
-    console.log(event.target.value);
+
+
+    const categoryChecked = event.target.value;
+    const checked = event.target.checked;
+    const filtrado = ArrayData.eventos.filter(c => c.category === categoryChecked)
+
+    if (checked === true) {
+        let divCarouselActive = document.createElement("div");
+        divCarouselActive.className = "carousel-item active";
+        divCarouselActive.innerHTML = `<div class="container">
+                <div class="row" id="card_template"> 
+                </div>
+              </div>
+              `;
+
+        for (let i = 0; i < filtrado.length; i++) {
+            let card = newCard(filtrado[i]);
+            divCarouselActive.querySelector("#card_template").appendChild(card);
+        }
+
+        document.querySelector("#TemplateCardHome").innerHTML = ''
+        document.getElementById("TemplateCardHome").appendChild(divCarouselActive)
+    } else {
+        document.querySelector("#TemplateCardHome").innerHTML = ''
+        tarjetasHome();
+    }
 
 }
-
-
 
 
 templateCategoryCheckboxHome();
