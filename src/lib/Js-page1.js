@@ -1,7 +1,7 @@
-const ArrayData = {
-    "fechaActual": "2022-01-01",
-    "eventos": [{
-        'id': 1,
+const ArrayData = [{
+    fechaActual: "2022-01-01",
+    eventos: [{
+        id: 1,
         "image": '../assets/eventsImages/event1.jpg',
         "name": "Collectivities Party",
         "date": "2021-12-12",
@@ -66,7 +66,7 @@ const ArrayData = {
         "name": "2022 World Athletics Championships",
         "date": "2022-11-02",
         "description": "A unique tour in the city of lights, get to know one of the most iconic places.",
-        "category": "Museum",
+        "category": "Sports",
         "place": "Paris",
         "capacity": 8200,
         "estimate": 8200,
@@ -91,7 +91,7 @@ const ArrayData = {
         'name': '2023 Venice Film Festival',
         'date': '2023-09-06',
         'description': 'The 2023 Venice Film Festival will take place from September 6-16, 2023.',
-        'category': 'Film',
+        'category': 'Sports',
         'place': 'Venice, Italy',
         'capacity': 1000,
         'estimate': 950,
@@ -104,7 +104,7 @@ const ArrayData = {
         'name': '2023 Paris Fashion Week',
         'date': '2023-10-01',
         'description': 'The 2023 Paris Fashion Week will be held from October 1-9, 2023.',
-        'category': 'Fashion',
+        'category': 'Sports',
         'place': 'Paris, France',
         'capacity': 5000,
         'estimate': 4800,
@@ -200,7 +200,13 @@ const ArrayData = {
         'price': 20
     }
     ]
-}
+}]
+
+let arrayTemplateHome;
+
+ArrayData.forEach(data => {
+    arrayTemplateHome = data.eventos
+})
 
 
 
@@ -227,7 +233,7 @@ function newCard(evento) {
     return divForCard;
 }
 
-function tarjetasHome() {
+function tarjetasHome(eventos) {
     let divCarouselActive = document.createElement("div");
     divCarouselActive.className = "carousel-item active";
     divCarouselActive.innerHTML = `<div class="container">
@@ -236,14 +242,26 @@ function tarjetasHome() {
           </div>
           `;
 
-    for (let i = 0; i < 4; i++) {
-        let card = newCard(ArrayData.eventos[i]);
-        divCarouselActive.querySelector("#card_template").appendChild(card);
+
+    console.log('LONGITUD:', eventos.length);
+
+    if (eventos.length < 4) {
+        for (let i = 0; i < eventos.length; i++) {
+            let card = newCard(eventos[i]);
+            divCarouselActive.querySelector("#card_template").appendChild(card);
+        }
+
+        document.getElementById("TemplateCardHome").appendChild(divCarouselActive)
+    } else {
+        for (let i = 0; i < 4; i++) {
+            let card = newCard(eventos[i]);
+            divCarouselActive.querySelector("#card_template").appendChild(card);
+        }
+
+        document.getElementById("TemplateCardHome").appendChild(divCarouselActive)
     }
 
-    document.getElementById("TemplateCardHome").appendChild(divCarouselActive)
-
-    for (let i = 4; i < ArrayData.eventos.length; i += 4) {
+    for (let i = 4; i < eventos.length; i += 4) {
 
         let divCarouselGeneral = document.createElement('div');
         divCarouselGeneral.className = 'carousel-item';
@@ -255,8 +273,8 @@ function tarjetasHome() {
 
         for (let j = i; j < i + 4; j++) {
 
-            if (ArrayData.eventos[j] != undefined) {
-                let card = newCard(ArrayData.eventos[j]);
+            if (eventos[j] != undefined) {
+                let card = newCard(eventos[j]);
                 divCarouselGeneral.querySelector('#card_template').appendChild(card);
             }
         }
@@ -278,24 +296,28 @@ function detalleCard(id) {
     }
 }
 
-newCard(ArrayData.eventos);
-tarjetasHome();
+newCard(arrayTemplateHome);
+tarjetasHome(arrayTemplateHome);
 
 
 // filtering data
 let categoriasUnique = [];
 
-function categoriasUnicas(data) {
+function categoriasUnicas(Data) {
 
-    data.eventos.forEach((evento) => {
-        if (!categoriasUnique.includes(evento.category)) {
-            categoriasUnique.push(evento.category);
+    Data.forEach((data) => {
+        for (let i = 0; i < data.eventos.length; i++) {
+            if (!categoriasUnique.includes(data.eventos[i].category)) {
+                categoriasUnique.push(data.eventos[i].category);
+            }
         }
+
     });
 
-    //console.log(categoriasUnique);
+    console.log('categorias unicas:', categoriasUnique);
 
 }
+
 
 categoriasUnicas(ArrayData);
 
@@ -320,34 +342,51 @@ function templateCategoryCheckboxHome() {
         const templateCategoryCheckbox = newCategory(categoriasUnique[i])
         rowCategory.appendChild(templateCategoryCheckbox)
     }
+
+
 }
+
+let templateCategory = [];
 
 function getValueCheckbox(event) {
 
+    const categoryChecked = event.target.value; // obtener valor del checkbox presionado
+    const checked = event.target.checked; // obtener evento click checked
+    let filtrado; // almacenar nuevo objeto filtrado segundo la categoria seleccionada
+    let arrayHome; // array de eventos inicial
 
-    const categoryChecked = event.target.value;
-    const checked = event.target.checked;
-    const filtrado = ArrayData.eventos.filter(c => c.category === categoryChecked)
+    templateCategory.push(categoryChecked)
+
+    const MultiCheckedCategory = templateCategory.filter((valor, indice) => {
+        return templateCategory.indexOf(valor) === indice;
+      }
+    );
+
+    ArrayData.forEach(data => {
+        arrayHome = data.eventos
+        filtrado = data.eventos.filter(c => c.category.search(MultiCheckedCategory)
+    )})
+
+    console.log('Filtrado Template Category:', filtrado);
+   
+    console.log('Template Category:', MultiCheckedCategory);
 
     if (checked === true) {
-        let divCarouselActive = document.createElement("div");
-        divCarouselActive.className = "carousel-item active";
-        divCarouselActive.innerHTML = `<div class="container">
-                <div class="row" id="card_template"> 
-                </div>
-              </div>
-              `;
-
-        for (let i = 0; i < filtrado.length; i++) {
-            let card = newCard(filtrado[i]);
-            divCarouselActive.querySelector("#card_template").appendChild(card);
-        }
+        console.log('VALOR CHECKBOX TRUE:',checked);
 
         document.querySelector("#TemplateCardHome").innerHTML = ''
-        document.getElementById("TemplateCardHome").appendChild(divCarouselActive)
+        console.log('cargando home template Filtrado:', filtrado);
+        tarjetasHome(filtrado);
+
+    } else if (checked === false) {
+        console.log('VALOR CHECKBOX ELSEIF:',checked);
     } else {
+        console.log('VALOR CHECKBOX ELSE:',checked);
+
         document.querySelector("#TemplateCardHome").innerHTML = ''
-        tarjetasHome();
+
+        console.log('cargando home template:', arrayHome);
+        tarjetasHome(arrayHome);
     }
 
 }
