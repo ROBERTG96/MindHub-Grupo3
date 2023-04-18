@@ -242,7 +242,6 @@ function tarjetasHome(eventos) {
           </div>
           `;
 
-
     console.log('LONGITUD:', eventos.length);
 
     if (eventos.length < 4) {
@@ -311,13 +310,11 @@ function categoriasUnicas(Data) {
                 categoriasUnique.push(data.eventos[i].category);
             }
         }
-
     });
 
     console.log('categorias unicas:', categoriasUnique);
 
 }
-
 
 categoriasUnicas(ArrayData);
 
@@ -326,11 +323,9 @@ function newCategory(categoryUnique) {
     const divCategory = document.createElement('div');
     divCategory.innerHTML = `
     <li class="nav-item" >
-                            <input type="checkbox" id="${categoryUnique}"  onclick="getValueCheckbox(event)" value="${categoryUnique}">
+                            <input type="checkbox" id="${categoryUnique}" class="class_check"  onclick="getValueCheckbox(event)" value="${categoryUnique}">
                             <label for="${categoryUnique}">${categoryUnique}</label>
                         </li>`
-
-
     return divCategory;
 }
 
@@ -348,7 +343,9 @@ function templateCategoryCheckboxHome() {
 
 let templateCategory = [];
 
-function getValueCheckbox(event) {
+
+
+function getValueCheckboxtest(event) {
 
     const categoryChecked = event.target.value; // obtener valor del checkbox presionado
     const checked = event.target.checked; // obtener evento click checked
@@ -359,33 +356,34 @@ function getValueCheckbox(event) {
 
     const MultiCheckedCategory = templateCategory.filter((valor, indice) => {
         return templateCategory.indexOf(valor) === indice;
-      }
+    }
     );
 
     ArrayData.forEach(data => {
         arrayHome = data.eventos
         filtrado = data.eventos.filter(c => c.category.search(MultiCheckedCategory)
-    )})
+        )
+    })
 
-    console.log('Filtrado Template Category:', filtrado);
-   
-    console.log('Template Category:', MultiCheckedCategory);
+    //console.log('Filtrado Template Category:', filtrado);
+
+    //console.log('Template Category:', MultiCheckedCategory);
 
     if (checked === true) {
-        console.log('VALOR CHECKBOX TRUE:',checked);
+    //    console.log('VALOR CHECKBOX TRUE:', checked);
 
         document.querySelector("#TemplateCardHome").innerHTML = ''
-        console.log('cargando home template Filtrado:', filtrado);
+  //      console.log('cargando home template Filtrado:', filtrado);
         tarjetasHome(filtrado);
 
     } else if (checked === false) {
-        console.log('VALOR CHECKBOX ELSEIF:',checked);
+        console.log('VALOR CHECKBOX ELSEIF:', checked);
     } else {
-        console.log('VALOR CHECKBOX ELSE:',checked);
+//        console.log('VALOR CHECKBOX ELSE:', checked);
 
-        document.querySelector("#TemplateCardHome").innerHTML = ''
+      document.querySelector("#TemplateCardHome").innerHTML = ''
 
-        console.log('cargando home template:', arrayHome);
+    //    console.log('cargando home template:', arrayHome);
         tarjetasHome(arrayHome);
     }
 
@@ -394,3 +392,18 @@ function getValueCheckbox(event) {
 
 templateCategoryCheckboxHome();
 
+
+
+function getValueCheckbox() {
+    let checks = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value)
+    console.log('metodo checked:', checks);
+
+    let filter =   ArrayData.filter(data => {
+        //arrayHome = data.eventos
+        
+        return ((data.eventos.includes()))
+    })
+
+    console.log(filter);
+
+}
