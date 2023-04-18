@@ -417,6 +417,7 @@ function searchCards() {
     const searchInput = document.querySelector('#search');
     const carouselContainer = document.querySelector('#carousel2-container');
 
+
     // Agregar un evento "input" al campo de búsqueda
     searchInput.addEventListener('input', function(event) {
         // Obtener el valor del campo de búsqueda
