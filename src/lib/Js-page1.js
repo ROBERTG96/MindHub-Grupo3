@@ -356,9 +356,7 @@ function getValueCheckbox() {
     }
 }
 
-
 templateCategoryCheckboxHome();
-
 function searchCards() {
     // Obtener referencia al campo de búsqueda y al contenedor del carrusel
     const searchInput = document.querySelector('#search');
@@ -366,7 +364,7 @@ function searchCards() {
 
 
     // Agregar un evento "input" al campo de búsqueda
-    searchInput.addEventListener('input', function (event) {
+    searchInput.addEventListener('input', function(event) {
         // Obtener el valor del campo de búsqueda
         const searchTerm = event.target.value.trim().toLowerCase();
 
@@ -384,11 +382,9 @@ function searchCards() {
                 // Si la tarjeta coincide con el término de búsqueda, agregarla a la lista de tarjetas filtradas
                 if (eventName.includes(searchTerm)) {
                     filteredCards.push(card);
-
                 } else {
-                    // Si la tarjeta no coincide con el término de búsqueda, ocultarla
-                    filteredCards.forEach(card => card.style.display = 'none');
-
+                    // Ocultar la card si no coincide con la búsqueda
+                    card.style.display = 'none';
                 }
             });
 
