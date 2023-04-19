@@ -418,3 +418,44 @@ function getValueCheckbox() {
     console.log(filter);
 
 }
+
+function searchCards() {
+    // Obtener referencia al campo de búsqueda y al contenedor del carrusel
+    const searchInput = document.querySelector('#search');
+    const carouselContainer = document.querySelector('#carousel2-container');
+
+
+    // Agregar un evento "input" al campo de búsqueda
+    searchInput.addEventListener('input', function(event) {
+        // Obtener el valor del campo de búsqueda
+        const searchTerm = event.target.value.trim().toLowerCase();
+
+        // Iterar sobre cada diapositiva del carrusel
+        const carouselItems = carouselContainer.querySelectorAll('.carousel-item');
+        carouselItems.forEach(item => {
+            // Obtener las tarjetas (cards) de la diapositiva actual
+            const cards = item.querySelectorAll('.card');
+            let filteredCards = [];
+
+            // Iterar sobre cada tarjeta de la diapositiva actual
+            cards.forEach(card => {
+                const eventName = card.querySelector('.card-title').textContent.trim().toLowerCase();
+
+                // Si la tarjeta coincide con el término de búsqueda, agregarla a la lista de tarjetas filtradas
+                if (eventName.includes(searchTerm)) {
+                    filteredCards.push(card);
+                } else {
+                    // Ocultar la card si no coincide con la búsqueda
+                    card.style.display = 'none';
+                }
+            });
+
+            // Mostrar solo las tarjetas filtradas
+            filteredCards.forEach(card => card.style.display = 'block');
+        });
+    });
+
+}
+
+// Llamar a la función de búsqueda
+searchCards();
