@@ -273,16 +273,19 @@ li.list-group-item {
   }
   
   .category {
-    background-color: #FFB347;
     color: #fff;
     font-weight: bold;
     padding: 5px 10px;
     border-radius: 5px;
     text-transform: uppercase;
     margin-bottom: 10px;
-    display: inline-block;
+    display: flex;
   }
   
+  .category > div > li {
+    margin-right: 20px;
+  }
+
   .details {
     display: flex;
     justify-content: space-between;
@@ -313,3 +316,8 @@ li.list-group-item {
     background-color: #FFB347;
     border-radius: 5px;
   }
+
+
+  /* category */
+
+ 

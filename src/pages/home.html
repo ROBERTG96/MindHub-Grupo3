@@ -22,8 +22,8 @@
                 <a class="navbar-brand" href="#"> <img src="../assets/images/LogoAmazingEvents.png" class="img-fluid" alt="Logo Amazing Events">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="nav_item">
                         <li class="nav-item">
@@ -45,11 +45,11 @@
                             <a class="nav-link" href="./stats.html">Stats</a>
                         </li>
                     </ul>
-                    <form class="d-flex ms-5" role="search">
+                    <form class="d-flex ms-5" role="">
                         <input class="form-control me-2" type="email" placeholder="email" aria-label="email">
                         <button class="btn btn-danger btn-danger-outline-danger" type="button">
-              Suscribe
-            </button>
+                            Suscribe
+                        </button>
                     </form>
                 </div>
             </div>
@@ -104,35 +104,18 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse container-category" id="navbarSupportedContent2">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 check-container">
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox1" value="second_checkbox">
-                            <label for="cbox1">Film</label>
-                        </li>
+                        <div class="category" id="templateCategory">
 
-                        <li class="nav-item dropdown">
-                            <input type="checkbox" id="cbox2" value="second_checkbox">
-                            <label for="cbox2">Sports</label>
-                        </li>
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox3" value="second_checkbox">
-                            <label for="cbox3">Theater</label>
-                        </li>
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox4" value="second_checkbox">
-                            <label for="cbox4">Festival</label>
-                        </li>
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox5" value="second_checkbox">
-                            <label for="cbox5">Concert</label>
-                        </li>
+                        </div>
                     </ul>
 
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-success" type="submit">
-              Search
-            </button>
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search">
+                        <button class="btn btn-success" type="submit" onclick="searchCards()">
+                            Search
+                        </button>
                     </form>
+                    <div id="results"></div>
                 </div>
             </div>
         </div>
@@ -147,15 +130,16 @@
                 <li data-bs-target="#carousel2-container" data-bs-slide-to="3"></li>
             </ol>
             <div class="carousel-inner" id="TemplateCardHome">
+                <!-- Acá se muestran las tarjetas creadas desde JS -->
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carousel2-container" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carousel2-container" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
 
         </div>
     </div>
@@ -189,7 +173,8 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    <p class="m-0 text-center">&copy; 2023 Todos los derechos reservados - MindHub Cohorte 14 - Grupo #3</p>
+                    <p class="m-0 text-center">&copy; 2023 Todos los derechos reservados - MindHub Cohorte 14 - Grupo #3
+                    </p>
                 </div>
             </div>
         </div>
