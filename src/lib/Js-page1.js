@@ -337,7 +337,7 @@ let templateCategory = [];
 
 function getValueCheckbox() {
 
-    let filtrado; // almacenar nuevo objeto filtrado segundo la categoria seleccionada
+    let filtrado; // almacenar nuevo objeto filtrado 
     let arrayHome; // array de eventos inicial
 
     let MultiCheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value)
@@ -350,7 +350,7 @@ function getValueCheckbox() {
     if (MultiCheckedCategory.length > 0) {
         resetTemplateCardHome();
         tarjetasHome(filtrado);
-    } else{
+    } else{ 
         resetTemplateCardHome();
         tarjetasHome(arrayHome);
     }
