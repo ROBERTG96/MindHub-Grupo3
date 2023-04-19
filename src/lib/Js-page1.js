@@ -319,7 +319,7 @@ function newCategory(categoryUnique) {
     divCategory.innerHTML = `
     <li class="nav-item" >
                             <input type="checkbox" id="${categoryUnique}" class="class_check"  onclick="getValueCheckbox()" value="${categoryUnique}">
-                            <label class="text-dark" for="${categoryUnique}">${categoryUnique}</label>
+                            <label for="${categoryUnique}">${categoryUnique}</label>
                         </li>`
     return divCategory;
 }
