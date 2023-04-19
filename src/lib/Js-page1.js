@@ -438,7 +438,7 @@ function searchCards() {
                 if (eventName.includes(searchTerm)) {
                     filteredCards.push(card);
                 } else {
-                    // Si la tarjeta no coincide con el término de búsqueda, ocultarla
+                    // Ocultar si la tarjeta actual que se está iterando no coincide con el término de búsqueda especificado por el usuario
                     card.style.display = 'none';
                 }
             });
