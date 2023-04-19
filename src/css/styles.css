@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');
+:root {
+    --primary-color: #D90368;
+    --secondary-color: #F9D5E5;
+    --tertiary-color: #FFFFFF;
+    --accent-color: #FFC107;
+    --background-color: #272727;
+    --text-color: #1a1a1a;
+}
+
 .html {
     height: 100%;
 }
@@ -8,28 +18,15 @@
     box-sizing: border-box;
 }
 
-.background-color {
-    background: #136a8a;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #267871, #136a8a);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #267871, #136a8a);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
 body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
     min-height: 100vh;
-    background: #136a8a;
     margin: 0;
-    margin-bottom: 40px;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #267871, #136a8a);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #267871, #136a8a);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 footer {
@@ -43,53 +40,43 @@ footer {
 
 /* ================MENU================== */
 
-#menu li>a {
-    font-size: 18px;
-    font-weight: bold;
+.navbar {
+    background-color: #272727;
 }
 
-#menu form>button {
-    font-size: 18px;
-    font-weight: bold;
+.nav-link {
+    color: var(--tertiary-color);
+    transition: color 0.3s ease-in-out;
+    font-weight: 700;
 }
 
-.navbar-collapse {
-    flex-grow: 0;
+.nav-link:hover {
+    color: var(--accent-color);
+    transition: color 0.2s ease-in-out;
 }
 
-.navbar-brand {
-    width: 15%;
-    height: 7%;
+.navbar-brand img {
+    max-height: 50px;
 }
 
-ul#nav_item li a {
-    position: relative;
-    font-weight: bold;
-    color: snow;
-    margin: 0px 15px;
+.btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--background-color);
 }
 
-ul#nav_item li a:after {
-    position: absolute;
-    bottom: 7px;
-    left: 0px;
-    width: 100%;
-    height: 4px;
-    background-color: white;
-    content: "";
-    opacity: 0;
-    transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
-    transform: translateY(20px);
+.btn:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
 }
 
-ul#nav_item li a:hover:after {
-    opacity: 1;
-    transform: translateY(15px);
+#nav_item li:hover {
+    border-bottom: 4px solid var(--accent-color);
+    transition: border-bottom 0.2s ease-in-out;
 }
 
-.btn-danger {
-    background-color: #DB0068;
-}
+#nav_item li:hover {}
 
 
 /* ================CONTACT PAGE================== */
@@ -111,7 +98,7 @@ label {
 /* ================HOME PAGE================== */
 
 .card-body {
-    max-height: 180px;
+    max-height: 200px;
 }
 
 
