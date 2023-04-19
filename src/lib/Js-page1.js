@@ -213,23 +213,24 @@ ArrayData.forEach(data => {
 function newCard(evento) {
     let divForCard = document.createElement("div");
     divForCard.className = "col-lg-3 col-sm-6";
-    divForCard.innerHTML = `<div class="card card-img" style="width: 18rem;">
-  <img class="card-img-top" src="${evento.image}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">  ${evento.name}</h5>
-    <p class="card-text"> ${evento.description}</p>
+    divForCard.innerHTML = `<div class="card card-event mb-4">
+    <img class="card-img-top" src="${evento.image}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">${evento.name}</h5>
+      <p class="card-text">${evento.description}</p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><i class="bi bi-calendar-event-fill icon_detail"></i> ${evento.date}</li>
+        <li class="list-group-item"><i class="bi bi-bookmark-star-fill icon_detail"></i> ${evento.category}</li>
+        <li class="list-group-item"><i class="bi bi-people-fill icon_detail"></i> ${evento.capacity}</li>
+        <li class="list-group-item"><i class="bi bi-geo-alt-fill icon_detail"></i> ${evento.place}</li>
+        <li class="list-group-item"><i class="bi bi-currency-exchange icon_detail"></i> ${evento.price}</li>
+      </ul>
+    </div>
+    <div class="card-footer">
+      <a class="btn btn-primary w-100" href="./details.html" target='_blank' onclick="detalleCard(${evento.id})">View Details</a>
+    </div>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Date"><i class="bi bi-calendar-event-fill icon_detail"></i> ${evento.date}</li>
-    <li class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Category"><i class="bi bi-bookmark-star-fill icon_detail"></i> ${evento.category}</li>
-    <li class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Capacity"><i class="bi bi-people-fill icon_detail"></i> ${evento.capacity}</li>
-  <li class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Place"><i class="bi bi-geo-alt-fill icon_detail"></i> ${evento.place}</li>
-    <li class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Price"><strong><i class="bi bi-currency-exchange icon_detail"></i> ${evento.price}</strong></li>
-  </ul>
-  <div class="card-body">
-    <a class="btn background-color text-light w-100 "  data-toggle="tooltip" data-placement="bottom" title="View Details - ${evento.name}" href="./details.html" target='_blank' onclick="detalleCard(${evento.id})"> <i class="bi bi-send-check-fill icon_view"></i></a>
-  </div>
-</div>`;
+  `;
     return divForCard;
 }
 
@@ -241,8 +242,6 @@ function tarjetasHome(eventos) {
             </div>
           </div>
           `;
-
-    console.log('LONGITUD:', eventos.length);
 
     if (eventos.length < 4) {
         for (let i = 0; i < eventos.length; i++) {
@@ -310,11 +309,13 @@ function categoriasUnicas(Data) {
                 categoriasUnique.push(data.eventos[i].category);
             }
         }
+
     });
 
     console.log('categorias unicas:', categoriasUnique);
 
 }
+
 
 categoriasUnicas(ArrayData);
 
@@ -323,9 +324,11 @@ function newCategory(categoryUnique) {
     const divCategory = document.createElement('div');
     divCategory.innerHTML = `
     <li class="nav-item" >
-                            <input type="checkbox" id="${categoryUnique}" class="class_check"  onclick="getValueCheckbox(event)" value="${categoryUnique}">
-                            <label for="${categoryUnique}">${categoryUnique}</label>
+                            <input type="checkbox" id="${categoryUnique}"  onclick="getValueCheckbox(eventevent)" value="${categoryUnique}">
+                            <label class="text-dark" for="${categoryUnique}">${categoryUnique}</label>
                         </li>`
+
+
     return divCategory;
 }
 
@@ -343,58 +346,25 @@ function templateCategoryCheckboxHome() {
 
 let templateCategory = [];
 
-
-
-function getValueCheckboxtest(event) {
+function getValueCheckbox() {
 
     const categoryChecked = event.target.value; // obtener valor del checkbox presionado
     const checked = event.target.checked; // obtener evento click checked
     let filtrado; // almacenar nuevo objeto filtrado segundo la categoria seleccionada
     let arrayHome; // array de eventos inicial
 
-    templateCategory.push(categoryChecked)
-
-    const MultiCheckedCategory = templateCategory.filter((valor, indice) => {
-        return templateCategory.indexOf(valor) === indice;
-    });
+    let MultiCheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value)
 
     ArrayData.forEach(data => {
         arrayHome = data.eventos
         filtrado = data.eventos.filter(c => c.category.search(MultiCheckedCategory))
     })
 
-    //console.log('Filtrado Template Category:', filtrado);
-
-    //console.log('Template Category:', MultiCheckedCategory);
-
-    if (checked === true) {
-        //    console.log('VALOR CHECKBOX TRUE:', checked);
-    };
-
-    ArrayData.forEach(data => {
-        arrayHome = data.eventos
-        filtrado = data.eventos.filter(c => c.category.search(MultiCheckedCategory))
-    })
-
-    console.log('Filtrado Template Category:', filtrado);
-
-    console.log('Template Category:', MultiCheckedCategory);
-
-    if (checked === true) {
-        console.log('VALOR CHECKBOX TRUE:', checked);
-
-        document.querySelector("#TemplateCardHome").innerHTML = ''
-            //      console.log('cargando home template Filtrado:', filtrado);
+    if (MultiCheckedCategory.length > 0) {
+        resetTemplateCardHome();
         tarjetasHome(filtrado);
-
-    } else if (checked === false) {
-        console.log('VALOR CHECKBOX ELSEIF:', checked);
     } else {
-        //        console.log('VALOR CHECKBOX ELSE:', checked);
-
-        document.querySelector("#TemplateCardHome").innerHTML = ''
-
-        //    console.log('cargando home template:', arrayHome);
+        resetTemplateCardHome();
         tarjetasHome(arrayHome);
     }
 
@@ -402,22 +372,6 @@ function getValueCheckboxtest(event) {
 
 
 templateCategoryCheckboxHome();
-
-
-
-function getValueCheckbox() {
-    let checks = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value)
-    console.log('metodo checked:', checks);
-
-    let filter = ArrayData.filter(data => {
-        //arrayHome = data.eventos
-
-        return ((data.eventos.includes()))
-    })
-
-    console.log(filter);
-
-}
 
 function searchCards() {
     // Obtener referencia al campo de búsqueda y al contenedor del carrusel
@@ -445,7 +399,7 @@ function searchCards() {
                 if (eventName.includes(searchTerm)) {
                     filteredCards.push(card);
                 } else {
-                    // Ocultar la card si no coincide con la búsqueda
+                    // Si la tarjeta actual que se está iterando no coincide con el término de búsqueda especificado por el usuario
                     card.style.display = 'none';
                 }
             });
