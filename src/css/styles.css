@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&display=swap');
+:root {
+    --primary-color: #D90368;
+    --secondary-color: #F9D5E5;
+    --tertiary-color: #FFFFFF;
+    --accent-color: #FFC107;
+    --background-color: #272727;
+    --text-color: #1a1a1a;
+}
+
 .html {
     height: 100%;
 }
@@ -8,28 +18,15 @@
     box-sizing: border-box;
 }
 
-.background-color {
-    background: #136a8a;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #267871, #136a8a);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #267871, #136a8a);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
 body {
     display: flex;
     flex-direction: column;
     min-height: 100%;
     min-height: 100vh;
-    background: #136a8a;
     margin: 0;
-    margin-bottom: 40px;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #267871, #136a8a);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #267871, #136a8a);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 footer {
@@ -43,52 +40,98 @@ footer {
 
 /* ================MENU================== */
 
-#menu li>a {
-    font-size: 18px;
-    font-weight: bold;
+.navbar {
+    background-color: #272727;
 }
 
-#menu form>button {
-    font-size: 18px;
-    font-weight: bold;
+.nav-link {
+    color: var(--tertiary-color);
+    transition: color 0.3s ease-in-out;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
-.navbar-collapse {
-    flex-grow: 0;
+.nav-link:hover {
+    color: var(--accent-color);
+    transition: color 0.2s ease-in-out;
 }
 
-.navbar-brand {
-    width: 15%;
-    height: 7%;
+.navbar-brand img {
+    max-height: 50px;
 }
 
-ul#nav_item li a {
-    position: relative;
-    font-weight: bold;
-    color: snow;
-    margin: 0px 15px;
+nav .btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--background-color);
 }
 
-ul#nav_item li a:after {
+nav .btn:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+#nav_item li:hover {
+    border-bottom: 4px solid var(--accent-color);
+    transition: border-bottom 0.2s ease-in-out;
+    height: 40px;
+}
+
+li.nav-item {
+    margin: 10px;
+}
+
+
+/* ================CAROUSEL SUPERIOR ================== */
+
+#carousel1 .carousel-item::before {
+    content: '';
     position: absolute;
-    bottom: 7px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 4px;
-    background-color: white;
-    content: "";
-    opacity: 0;
-    transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
-    transform: translateY(20px);
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.719);
 }
 
-ul#nav_item li a:hover:after {
-    opacity: 1;
-    transform: translateY(15px);
+
+/* ================FILTROS================== */
+
+.navbar-filter {
+    background-color: var(--background-color);
+    color: var(--tertiary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 10px #d903679f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 100px;
+    margin-top: 30px;
 }
 
-.btn-danger {
-    background-color: #DB0068;
+.navbar-filter form {
+    margin-left: 20px;
+}
+
+.navbar-filter input[type="search"] {
+    background-color: var(--tertiary-color);
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.navbar-filter button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.navbar.navbar-expand-lg.navbar-filter {
+    margin-bottom: 45px;
 }
 
 
@@ -105,6 +148,23 @@ ul#nav_item li a:hover:after {
 
 label {
     color: white;
+}
+
+
+/* ================HOME PAGE================== */
+
+
+
+.card .btn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--background-color);
+}
+
+.card .btn:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 
@@ -142,8 +202,13 @@ footer {
     transition: all 0.3s ease;
 }
 
-footer P {
+footer p {
     color: #000;
+}
+
+footer button {
+    color: #000;
+    border: none;
 }
 
 
@@ -192,9 +257,11 @@ td {
     CUSTOM CSS PAGE 1
     */
 
-.card-text {
-    height: 130px;
+button.carousel-control-prev,
+.carousel-control-next {
+    width: 2%;
 }
+
 
 ol.carousel-indicators {
     top: 100%;
@@ -244,35 +311,38 @@ li.list-group-item {
     background: url("../assets/images/eventos_musicales.jpg") no-repeat center center/cover;
 }
 
+
 /* PAST AND UPCOMING EVENTS */
 
 .card_events {
     width: 400px;
     border: 1px solid #ccc;
-    background-color:white;
+    background-color: white;
     border-radius: 5px;
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
-  }
-  
-  h1, h2, p {
+}
+
+h1,
+h2,
+p {
     margin: 0;
-  }
-  
-  .image-container {
+}
+
+.image-container {
     text-align: center;
     margin-bottom: 20px;
-  }
-  
-  .img-card-container {
+}
+
+.img-card-container {
     width: 100%;
     max-height: 400px;
     object-fit: cover;
     border-radius: 5px;
-  }
-  
-  .category {
+}
+
+.category {
     color: #fff;
     font-weight: bold;
     padding: 5px 10px;
@@ -280,44 +350,42 @@ li.list-group-item {
     text-transform: uppercase;
     margin-bottom: 10px;
     display: flex;
-  }
-  
-  .category > div > li {
-    margin-right: 20px;
-  }
+}
 
-  .details {
+.category>div>li {
+    margin-right: 20px;
+}
+
+.details {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .price {
+}
+
+.price {
     font-size: 24px;
     font-weight: bold;
     color: #FFB347;
-  }
-  
-  .capacity {
+}
+
+.capacity {
     font-size: 14px;
     color: #999;
-  }
-  
-  .progress-bar {
+}
+
+.progress-bar {
     height: 10px;
     background-color: #ccc;
     border-radius: 5px;
     overflow: hidden;
     margin-bottom: 10px;
-  }
-  
-  .progress {
+}
+
+.progress {
     height: 100%;
     background-color: #FFB347;
     border-radius: 5px;
-  }
+}
 
 
-  /* category */
-
- 
+/* category */
