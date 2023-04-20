@@ -165,7 +165,6 @@ const upComingEvents = ArrayData.eventos.filter(
 let allEvents = upComingEvents;
 let newArrayEvents = new Array();
 
-
 // transformar array para agregar identificador
 for (let i = 0; i < allEvents.length; i++) {
 
@@ -193,7 +192,7 @@ function newCard(evento) {
     divForCard.className = "col-lg-3 col-sm-6";
 
     divForCard.innerHTML = `<div class="card h-100" style="max-width: 400px;">
-        <img src="${evento.image}" class="card-img-top" alt="...">
+        <img src="${evento.image}" class="card-img-top" alt="${evento.name}">
         <div class="card-body">
           <h5 class="card-title">${evento.name}</h5>
           <p class="card-text">${evento.description}</p>
@@ -206,7 +205,7 @@ function newCard(evento) {
           <li class="list-group-item"><i class="bi bi-currency-exchange me-2"></i>${evento.price}</li>
         </ul>
         <div class="card-footer">
-          <a href="./details.html" class="btn btn-primary w-100" onclick="detalleCard(${evento.id})" >View Details</a>
+          <a href="./details.html" class="btn btn-primary text-light w-100" onclick="detalleCard(${evento.id})" >View Details</a>
         </div>
       </div>
       `;

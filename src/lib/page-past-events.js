@@ -185,7 +185,7 @@ for (let i = 0; i < allEvents.length; i++) {
 }
 
 function resetTemplateCard() {
-    document.querySelector("#TemplateCardUpcoming").innerHTML = ''
+    document.querySelector("#TemplateCardPastEvents").innerHTML = ''
 }
 
 function newCard(evento) {
@@ -193,7 +193,7 @@ function newCard(evento) {
     divForCard.className = "col-lg-3 col-sm-6";
 
     divForCard.innerHTML = `<div class="card h-100" style="max-width: 400px;">
-        <img src="${evento.image}" class="card-img-top" alt="...">
+        <img src="${evento.image}" class="card-img-top" alt="${evento.name}">
         <div class="card-body">
           <h5 class="card-title">${evento.name}</h5>
           <p class="card-text">${evento.description}</p>
@@ -201,12 +201,12 @@ function newCard(evento) {
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><i class="bi bi-calendar-event-fill me-2"></i>${evento.date}</li>
           <li class="list-group-item"><i class="bi bi-bookmark-star-fill me-2"></i>${evento.category}</li>
-          <li class="list-group-item"><i class="bi bi-people-fill me-2"></i>${evento.capacity}</li>
+          <li class="list-group-item"><i class="bi bi-people-fill me-2"></i>${evento.assistance}</li>
           <li class="list-group-item"><i class="bi bi-geo-alt-fill me-2"></i>${evento.place}</li>
           <li class="list-group-item"><i class="bi bi-currency-exchange me-2"></i>${evento.price}</li>
         </ul>
         <div class="card-footer">
-          <a href="./details.html" class="btn btn-primary w-100" onclick="detalleCard(${evento.id})" >View Details</a>
+          <a href="./details.html" class="btn btn-primary text-light w-100" onclick="detalleCard(${evento.id})" >View Details</a>
         </div>
       </div>
       `;
@@ -215,7 +215,7 @@ function newCard(evento) {
 }
 
 
-function tarjetasUpcoming(eventos) {
+function tarjetasPastEvents(eventos) {
     let divCarouselActive = document.createElement("div");
     divCarouselActive.className = "carousel-item active";
     divCarouselActive.innerHTML = `<div class="container">
@@ -230,13 +230,13 @@ function tarjetasUpcoming(eventos) {
             let card = newCard(eventos[i]);
             divCarouselActive.querySelector("#card_template").appendChild(card);
         }
-        document.getElementById("TemplateCardUpcoming").appendChild(divCarouselActive)
+        document.getElementById("TemplateCardPastEvents").appendChild(divCarouselActive)
     } else {
         for (let i = 0; i < 4; i++) {
             let card = newCard(eventos[i]);
             divCarouselActive.querySelector("#card_template").appendChild(card);
         }
-        document.getElementById("TemplateCardUpcoming").appendChild(divCarouselActive)
+        document.getElementById("TemplateCardPastEvents").appendChild(divCarouselActive)
     }
 
     for (let i = 4; i < eventos.length; i += 4) {
@@ -255,11 +255,14 @@ function tarjetasUpcoming(eventos) {
                 divCarouselGeneral.querySelector('#card_template').appendChild(card);
             }
         }
-        document.getElementById('TemplateCardUpcoming').appendChild(divCarouselGeneral);
+        document.getElementById('TemplateCardPastEvents').appendChild(divCarouselGeneral);
     }
 }
 
 function detalleCard(id) {
+    console.log('ACA 1:', id);
+
+    console.log('ACA 2:', newArrayEvents);
     for (let i = 0; i < newArrayEvents.length; i++) {
         if (newArrayEvents[i].id === parseInt(id)) {
             localStorage.clear();
@@ -272,8 +275,8 @@ function detalleCard(id) {
 }
 
 
-newCard(PastEvents);
-tarjetasUpcoming(PastEvents);
+newCard(newArrayEvents);
+tarjetasPastEvents(newArrayEvents);
 
 
 // filtering data upcoming events
@@ -301,7 +304,7 @@ function newCategory(categoryUnique) {
     return divCategory;
 }
 
-function templateCategoryCheckboxUpcoming() {
+function templateCategoryCheckboxPastEvents() {
 
     const rowCategory = document.querySelector('#templateCategory');
 
@@ -311,22 +314,22 @@ function templateCategoryCheckboxUpcoming() {
     }
 }
 
-templateCategoryCheckboxUpcoming();
+templateCategoryCheckboxPastEvents();
 
 let templateCategory = new Array();
 
 function getValueCheckbox() {
 
     let CheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value) // obtener valor del input checked
-    let arrayUpcomingEvent = newArrayEvents; // array de eventos inicial
+    let arrayPastEvents = newArrayEvents; // array de eventos inicial
     let filtrado = newArrayEvents.filter(c => CheckedCategory.includes(c.category)) // almacenar nuevo objeto filtrado 
 
     if (CheckedCategory.length > 0) {
         resetTemplateCard();
-        tarjetasUpcoming(filtrado);
+        tarjetasPastEvents(filtrado);
     } else {
         resetTemplateCard();
-        tarjetasUpcoming(arrayUpcomingEvent);
+        tarjetasPastEvents(arrayPastEvents);
     }
 }
 

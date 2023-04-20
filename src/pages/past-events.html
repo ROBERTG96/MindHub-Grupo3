@@ -59,12 +59,6 @@
 
     <div class="container-flex">
         <div id="carousel1" class="carousel slide" data-bs-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-bs-target="#carousel1" data-bs-slide-to="0" class="active"></li>
-                <li data-bs-target="#carousel1" data-bs-slide-to="1"></li>
-                <li data-bs-target="#carousel1" data-bs-slide-to="2"></li>
-
-            </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="img_event1">
@@ -101,47 +95,28 @@
         </div>
     </div>
     <div>
-        <div class="navbar navbar-expand-lg background-color bg-body-tertiary">
+        <div class="navbar navbar-expand-lg navbar-filter">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse container-category" id="navbarSupportedContent2">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 check-container">
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox1" value="second_checkbox">
-                            <label for="cbox1">Film</label>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <input type="checkbox" id="cbox2" value="second_checkbox">
-                            <label for="cbox2">Sports</label>
-                        </li>
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox3" value="second_checkbox">
-                            <label for="cbox3">Theater</label>
-                        </li>
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox4" value="second_checkbox">
-                            <label for="cbox4">Festival</label>
-                        </li>
-                        <li class="nav-item">
-                            <input type="checkbox" id="cbox5" value="second_checkbox">
-                            <label for="cbox5">Concert</label>
-                        </li>
+                        <div class="category" id="templateCategory">
+                            <!-- Aquí se agregan checkbox dinámicamente desde JS -->
+                        </div>
                     </ul>
 
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-success" type="submit">
-            Search
-          </button>
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search">
+                        <button class="btn btn-success btn-search" type="submit" id="search" onclick="searchCards()">
+                            <i class="bi bi-search"></i>
+                        </button>
                     </form>
+                    <div id="results"></div>
                 </div>
             </div>
         </div>
-
         <div class="container-fluid my-4">
             <div id="carousel2-container" class="carousel slide" data-bs-ride="carousel">
-               
-                <div class="carousel-inner" id="TemplateCardHome">
+                <div class="carousel-inner" id="TemplateCardPastEvents">
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carousel2-container" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -196,7 +171,7 @@
                 $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
-         <script src="../lib/page-past-events.js"></script>
+         <script src="../lib/page-past-events.js" type="text/javascript"></script>
 
 </body>
 
