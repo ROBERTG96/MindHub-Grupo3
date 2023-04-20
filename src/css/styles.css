@@ -153,9 +153,7 @@ label {
 
 /* ================HOME PAGE================== */
 
-.card-body {
-    max-height: 200px;
-}
+
 
 .card .btn {
     background-color: var(--primary-color);
@@ -264,9 +262,6 @@ button.carousel-control-prev,
     width: 2%;
 }
 
-.card-text {
-    height: 130px;
-}
 
 ol.carousel-indicators {
     top: 100%;
