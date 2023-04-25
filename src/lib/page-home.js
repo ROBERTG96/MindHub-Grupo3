@@ -1,17 +1,6 @@
 let urlApi = 'https://pro-talento.up.railway.app/api/amazing';
 
-let Api = new Array();
-
-async function getApi(){
-    try {
-        let res = await fetch(urlApi)
-        res = await res.json();
-        return res;
-
-    } catch (error) {
-        console.error(error);
-    }
-}
+let ApiResponse = new Array();
 
 async function HomeApi() {
 
@@ -19,9 +8,10 @@ async function HomeApi() {
 
         let res = await fetch(urlApi)
         res = await res.json();
+        ApiResponse = res.response;
 
-        tarjetasHome(res.response);
-        categoriasUnicas(res.response)
+        tarjetasHome(ApiResponse);
+        categoriasUnicas(ApiResponse)
         templateCategoryCheckboxHome();
 
     } catch (error) {
@@ -34,6 +24,22 @@ HomeApi();
 
 function resetTemplateCardHome() {
     document.querySelector("#TemplateCardHome").innerHTML = ''
+}
+
+function SearchNotFoundTemplateCardHome() {
+    let templateCard = document.querySelector("#TemplateCardHome");
+    templateCard.innerHTML = ''
+    templateCard.innerHTML = `<div class="d-flex align-items-center justify-content-center vh-100">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold text-light">Busqueda no encontrada</h1>
+        <p class="fs-3 text-light"> <span class="text-danger">Opps!</span> Search not found.</p>
+        <p class="lead text-light">
+            The data you’re looking for doesn’t exist.
+          </p>
+        <a href="../pages/home.html" class="btn btn-primary">New Search</a>
+    </div>
+</div>
+    `
 }
 
 function newCard(evento) {
@@ -160,9 +166,10 @@ function getValueCheckbox() {
 
 
     let CheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value) // obtener valor del input checked
-    let arrayHome = Api; // array de eventos inicial
-    let filtrado = Api.filter(c => CheckedCategory.includes(c.category)) // almacenar nuevo objeto filtrado 
+    let arrayHome = ApiResponse; // array de eventos inicial
+    let filtrado = ApiResponse.filter(c => CheckedCategory.includes(c.category)) // almacenar nuevo objeto filtrado 
 
+    console.log('filtrando category:', filtrado);
     if (CheckedCategory.length > 0) {
         resetTemplateCardHome();
         tarjetasHome(filtrado);
@@ -170,33 +177,39 @@ function getValueCheckbox() {
         resetTemplateCardHome();
         tarjetasHome(arrayHome);
     }
+
+    return filtrado;
 }
 
-
-async function searchCards() {
+function searchCards() {
     // Obtener referencia al campo de búsqueda y al contenedor del carrusel
     const searchInput = document.querySelector('#search');
+    search = searchInput.value.toLowerCase();
 
-    let arrayFilter = new Array();
-    let response = await getApi();
-    arrayFilter.push(response.response);
+    let valueChecked = getValueCheckbox();
+    console.log("valueChecked:", valueChecked);
 
-    console.log(arrayFilter[0]);
-    // Agregar un evento "input" al campo de búsqueda
-    searchInput.addEventListener('input', function (event) {
-
-        // Obtener el valor del campo de búsqueda
-        const searchTerm = event.target.value.trim().toLowerCase();
-
-       let nameFilter = arrayFilter[0].filter(evento => evento.name.includes(searchTerm))
-        console.log('Filtrado:', nameFilter);
-
-
-
-
+    const FilterEvents = ApiResponse.filter(function (eventos) {
+        eventos.name = eventos.name.toLowerCase();
+        console.log(eventos.category);
+        return eventos.name.indexOf(search) > -1 ;
     })
+
+    if(FilterEvents.length === 0) {
+        resetTemplateCardHome();
+        SearchNotFoundTemplateCardHome();
+    }else {
+        console.log('ARRAY FILTRADO PARA MOSTRAR:',FilterEvents);
+        for (let i = 0; i < FilterEvents.length; i++) {
+            resetTemplateCardHome();
+            tarjetasHome(FilterEvents);
+        }
+    }
+    
+
+
+    // console.log('ApiResponse', dataFilter);
 
 }
 
 // Llamar a la función de búsqueda
-searchCards();
