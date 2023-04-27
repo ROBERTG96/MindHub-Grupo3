@@ -1,8 +1,8 @@
 let urlApi = 'https://pro-talento.up.railway.app/api/amazing';
 
-let Api = new Array();
+let ApiGlobal;
 
-async function getApi(){
+async function getApi() {
     try {
         let res = await fetch(urlApi)
         res = await res.json();
@@ -19,7 +19,7 @@ async function HomeApi() {
 
         let res = await fetch(urlApi)
         res = await res.json();
-
+        ApiGlobal  = res.response;
         tarjetasHome(res.response);
         categoriasUnicas(res.response)
         templateCategoryCheckboxHome();
@@ -35,6 +35,24 @@ HomeApi();
 function resetTemplateCardHome() {
     document.querySelector("#TemplateCardHome").innerHTML = ''
 }
+
+function SearchNotFoundTemplateCardHome() {
+    let templateCard = document.querySelector("#TemplateCardHome");
+    templateCard.innerHTML = ''
+    templateCard.innerHTML = `<div class="d-flex align-items-center justify-content-center ">
+    <div class="text-center">
+        <h1 class="display-1 fw-bold text-light">Busqueda no encontrada</h1>
+        <p class="fs-3 text-light"> <span class="text-danger">Opps!</span> Search not found.</p>
+        <p class="lead text-light">
+            The data you’re looking for doesn’t exist.
+          </p>
+        <a href="../pages/home.html" class="btn btn-primary">New Search</a>
+    </div>
+</div>`
+    
+}
+
+
 
 function newCard(evento) {
     let divForCard = document.createElement("div");
@@ -53,7 +71,7 @@ function newCard(evento) {
           <li class="list-group-item"><i class="bi bi-currency-exchange me-2"></i>${evento.price}</li>
         </ul>
         <div class="card-footer">
-          <a href="./details.html" class="btn btn-primary text-light w-100" onclick="detalleCard(${evento.id})" >View Details</a>
+          <a href="#" class="btn btn-primary text-light w-100" onclick="detalleCard(${evento.id})" >View Details</a>
         </div>
       </div>
       `;
@@ -110,15 +128,8 @@ function tarjetasHome(eventos) {
 const details_card = document.querySelector("details_card");
 
 function detalleCard(id) {
-    for (let i = 0; i < Api.length; i++) {
-        if (Api[i].id === (id)) {
-            localStorage.clear();
-            return localStorage.setItem(
-                "detail_temp",
-                JSON.stringify(Api[i])
-            );
-        }
-    }
+   
+    console.log('ID SELECTED:', id);
 }
 
 
@@ -156,12 +167,13 @@ function templateCategoryCheckboxHome() {
 }
 
 
-function getValueCheckbox() {
+async function getValueCheckbox() {
 
+    let response = await getApi();
 
     let CheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value) // obtener valor del input checked
-    let arrayHome = Api; // array de eventos inicial
-    let filtrado = Api.filter(c => CheckedCategory.includes(c.category)) // almacenar nuevo objeto filtrado 
+    let arrayHome = response.response; // array de eventos inicial
+    let filtrado = response.response.filter(c => CheckedCategory.includes(c.category)) // almacenar nuevo objeto filtrado 
 
     if (CheckedCategory.length > 0) {
         resetTemplateCardHome();
@@ -173,30 +185,33 @@ function getValueCheckbox() {
 }
 
 
-async function searchCards() {
+function searchCards() {
     // Obtener referencia al campo de búsqueda y al contenedor del carrusel
     const searchInput = document.querySelector('#search');
+    let busqueda = searchInput.value.toLowerCase();
+   
+    // get value checked
+    let CheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value) // obtener valor del input checked
 
-    let arrayFilter = new Array();
-    let response = await getApi();
-    arrayFilter.push(response.response);
+    const filtrado = ApiGlobal.filter(function (eventos) {
+        eventos.name = eventos.name.toLowerCase();
+        let auxCategory = CheckedCategory.map(val => val.toLowerCase())
+        eventos.category = eventos.category.toLowerCase();
 
-    console.log(arrayFilter[0]);
-    // Agregar un evento "input" al campo de búsqueda
-    searchInput.addEventListener('input', function (event) {
+        return eventos.name.indexOf(busqueda) > -1 && auxCategory.includes(eventos.category);
+    });
 
-        // Obtener el valor del campo de búsqueda
-        const searchTerm = event.target.value.trim().toLowerCase();
+    if(filtrado.length === 0){
+        resetTemplateCardHome();
+        SearchNotFoundTemplateCardHome();
+    }else {
+        resetTemplateCardHome();
+        tarjetasHome(filtrado)
+    }
 
-       let nameFilter = arrayFilter[0].filter(evento => evento.name.includes(searchTerm))
-        console.log('Filtrado:', nameFilter);
-
-
-
-
-    })
+    console.log('Filtrado:', filtrado);
 
 }
 
-// Llamar a la función de búsqueda
-searchCards();
+
+// Llamar a la función de búsqueda  //|| notas.text.indexOf(busqueda) > -1

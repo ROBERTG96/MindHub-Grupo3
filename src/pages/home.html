@@ -101,6 +101,7 @@
     </div>
 
     <div>
+
         <div class="navbar navbar-expand-lg navbar-filter">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse container-category" id="navbarSupportedContent2">
@@ -108,10 +109,11 @@
                         <div class="category" id="templateCategory">
                             <!-- Aquí se agregan checkbox dinámicamente desde JS -->
                         </div>
+
                     </ul>
 
                     <div class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" onkeyup="searchCards()" aria-label="Search" id="search">
                         <button class="btn btn-success btn-search" id="search" onclick="searchCards()">
                             <i class="bi bi-search"></i>
                         </button>
@@ -119,12 +121,14 @@
                     <div id="results"></div>
                 </div>
             </div>
+
         </div>
+
     </div>
 
     <div class="container-fluid my-1">
+
         <div id="carousel2-container" class="carousel slide" data-bs-ride="carousel">
-          
             <div class="carousel-inner" id="TemplateCardHome">
                 <!-- Acá se muestran las tarjetas creadas desde JS -->
             </div>
