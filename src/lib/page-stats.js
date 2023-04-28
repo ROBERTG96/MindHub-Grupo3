@@ -25,11 +25,11 @@ async function StatsDataTablePastEvents(urlPastEvents, template) {
         // PERCENTAGES
 
         let asistencia = eventsRows.map(event => {
-            return  event.assistance;
+            return event.assistance;
         })
 
         let capacity = eventsRows.map(event => {
-            return  event.capacity;
+            return event.capacity;
         })
 
         let acumularasistencia = asistencia.reduce((acc, val) => {
@@ -40,7 +40,7 @@ async function StatsDataTablePastEvents(urlPastEvents, template) {
             return acc + val;
         })
 
-        let percentage = Number((acumularasistencia/acumularcapacity)*100).toFixed(2);
+        let percentage = Number((acumularasistencia / acumularcapacity) * 100).toFixed(2);
         template.innerHTML += `<tr>
                                     <td class="col-1 col-sm-1 col-md-2 col-lg-4">${category}</td>
                                     <td class="col-1 col-sm-1 col-md-2 col-lg-4">${Number(total).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
@@ -67,11 +67,11 @@ async function StatsDataTableUpcomingEvents(urlUpcomingEvents, template) {
         // PERCENTAGES
 
         let estimate = eventsRows.map(event => {
-            return  event.estimate;
+            return event.estimate;
         })
 
         let capacity = eventsRows.map(event => {
-            return  event.capacity;
+            return event.capacity;
         })
 
         let acumularestimate = estimate.reduce((acc, val) => {
@@ -82,7 +82,9 @@ async function StatsDataTableUpcomingEvents(urlUpcomingEvents, template) {
             return acc + val;
         })
 
-        let percentage = Number((acumularestimate/acumularcapacity)*100).toFixed(2);
+        let percentage = Number((acumularestimate / acumularcapacity) * 100).toFixed(2);
+
+
         template.innerHTML += `<tr>
                                     <td class="col-1 col-sm-1 col-md-2 col-lg-4">${category}</td>
                                     <td class="col-1 col-sm-1 col-md-2 col-lg-4">${Number(total).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
@@ -90,3 +92,29 @@ async function StatsDataTableUpcomingEvents(urlUpcomingEvents, template) {
                                 </tr>`;
     });
 }
+
+fetch(urlPastEvents)
+    .then(response => response.json())
+    .then(data => {
+        let maxAttendanceEvent = { name: null, percentage: 0 };
+        let minAttendanceEvent = { name: null, percentage: 1 };
+        data.response.forEach(event => {
+            const percentage = event.assistance / event.capacity;
+            if (percentage > maxAttendanceEvent.percentage) {
+                maxAttendanceEvent = { name: event.name, percentage: percentage };
+            }
+            if (percentage < minAttendanceEvent.percentage) {
+                minAttendanceEvent = { name: event.name, percentage: percentage };
+            }
+        });
+        let maxAttendanceCell = document.getElementById('maxAttendanceCell');
+        maxAttendanceCell.textContent = maxAttendanceEvent.name;
+        let maxAttendancePercentageCell = document.getElementById('maxAttendancePercentageCell');
+        let percentageText = (maxAttendanceEvent.percentage * 100).toFixed(2);
+        maxAttendancePercentageCell.textContent = percentageText;
+        let minAttendanceCell = document.getElementById('minAttendanceCell');
+        minAttendanceCell.textContent = minAttendanceEvent.name;
+        let minAttendancePercentageCell = document.getElementById('minAttendancePercentageCell');
+        let percentageText2 = (minAttendanceEvent.percentage * 100).toFixed(2);
+        minAttendancePercentageCell.textContent = percentageText2;
+    });
