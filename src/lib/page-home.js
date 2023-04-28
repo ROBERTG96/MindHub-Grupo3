@@ -77,8 +77,6 @@ function newCard(evento) {
       `;
 
     return divForCard;
-
-
 }
 
 function tarjetasHome(eventos) {
@@ -209,7 +207,7 @@ function searchCards() {
         tarjetasHome(filtrado)
     }
 
-    console.log('Filtrado:', filtrado);
+ //   console.log('Filtrado:', filtrado);
 
 }
 
