@@ -19,7 +19,7 @@ async function HomeApi() {
 
         let res = await fetch(urlApi)
         res = await res.json();
-        ApiGlobal  = res.response;
+        ApiGlobal = res.response;
         tarjetasHome(res.response);
         categoriasUnicas(res.response)
         templateCategoryCheckboxHome();
@@ -49,12 +49,12 @@ function SearchNotFoundTemplateCardHome() {
         <a href="../pages/home.html" class="btn btn-primary">New Search</a>
     </div>
 </div>`
-    
 }
 
 
 
 function newCard(evento) {
+
     let divForCard = document.createElement("div");
     divForCard.className = "col-lg-3 col-sm-6";
     divForCard.innerHTML = `<div class="card h-100" style="max-width: 400px;">
@@ -71,10 +71,9 @@ function newCard(evento) {
           <li class="list-group-item"><i class="bi bi-currency-exchange me-2"></i>${evento.price}</li>
         </ul>
         <div class="card-footer">
-          <a href="#" class="btn btn-primary text-light w-100" onclick="detalleCard(${evento.id})" >View Details</a>
+          <a class="btn btn-primary text-light w-100" onclick="detalleCard('${evento.id}')">View Details</a>
         </div>
-      </div>
-      `;
+      </div>`;
 
     return divForCard;
 }
@@ -126,10 +125,8 @@ function tarjetasHome(eventos) {
 const details_card = document.querySelector("details_card");
 
 function detalleCard(id) {
-   
-    console.log('ID SELECTED:', id);
+    location.href = `details.html?id=${id}`;
 }
-
 
 // filtering data
 let categoriasUnique = new Array();
@@ -187,29 +184,42 @@ function searchCards() {
     // Obtener referencia al campo de búsqueda y al contenedor del carrusel
     const searchInput = document.querySelector('#search');
     let busqueda = searchInput.value.toLowerCase();
-   
+
     // get value checked
     let CheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value) // obtener valor del input checked
 
-    const filtrado = ApiGlobal.filter(function (eventos) {
-        eventos.name = eventos.name.toLowerCase();
-        let auxCategory = CheckedCategory.map(val => val.toLowerCase())
-        eventos.category = eventos.category.toLowerCase();
+    let filtrado;
 
-        return eventos.name.indexOf(busqueda) > -1 && auxCategory.includes(eventos.category);
-    });
+    if (CheckedCategory.length > 0) {
+        filtrado = ApiGlobal.filter(function (eventos) {
+            eventos.name = eventos.name.toLowerCase();
+            let auxCategory = CheckedCategory.map(val => val.toLowerCase())
+            eventos.category = eventos.category.toLowerCase();
 
-    if(filtrado.length === 0){
-        resetTemplateCardHome();
-        SearchNotFoundTemplateCardHome();
-    }else {
-        resetTemplateCardHome();
-        tarjetasHome(filtrado)
+            return eventos.name.indexOf(busqueda) > -1 && auxCategory.includes(eventos.category);
+        });
+
+        if (filtrado.length > 0) {
+            resetTemplateCardHome();
+            tarjetasHome(filtrado)
+        } else {
+            resetTemplateCardHome();
+            SearchNotFoundTemplateCardHome();
+        }
+
+    } else {
+
+        filtrado = ApiGlobal.filter(function (eventos) {
+            eventos.name = eventos.name.toLowerCase();
+            return eventos.name.indexOf(busqueda) > -1;
+        });
+        if (filtrado.length > 0) {
+            resetTemplateCardHome();
+            tarjetasHome(filtrado)
+        } else {
+            resetTemplateCardHome();
+            SearchNotFoundTemplateCardHome();
+        }
     }
 
- //   console.log('Filtrado:', filtrado);
-
 }
-
-
-// Llamar a la función de búsqueda  //|| notas.text.indexOf(busqueda) > -1

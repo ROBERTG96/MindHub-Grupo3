@@ -104,19 +104,19 @@
                         </div>
                     </ul>
 
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search">
-                        <button class="btn btn-success btn-search" type="submit" id="search" onclick="searchCards()">
+                    <div class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" onkeyup="searchCards()" aria-label="Search" id="search">
+                        <button class="btn btn-success btn-search" id="search" onclick="searchCards()">
                             <i class="bi bi-search"></i>
                         </button>
-                    </form>
+                    </div>
                     <div id="results"></div>
                 </div>
             </div>
         </div>
         <div class="container-fluid my-4">
             <div id="carousel2-container" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" id="TemplateCardPastEvents">
+                <div class="carousel-inner" id="TemplateCardPastEvent">
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carousel2-container" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
