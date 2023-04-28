@@ -389,3 +389,8 @@ p {
 
 
 /* category */
+
+
+img {
+    object-fit: cover !important;
+}
