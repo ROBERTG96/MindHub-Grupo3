@@ -1,6 +1,17 @@
 let urlApi = 'https://pro-talento.up.railway.app/api/amazing';
 
-let ApiResponse = new Array();
+let ApiGlobal;
+
+async function getApi() {
+    try {
+        let res = await fetch(urlApi)
+        res = await res.json();
+        return res;
+
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 async function HomeApi() {
 
@@ -8,10 +19,9 @@ async function HomeApi() {
 
         let res = await fetch(urlApi)
         res = await res.json();
-        ApiResponse = res.response;
-
-        tarjetasHome(ApiResponse);
-        categoriasUnicas(ApiResponse)
+        ApiGlobal  = res.response;
+        tarjetasHome(res.response);
+        categoriasUnicas(res.response)
         templateCategoryCheckboxHome();
 
     } catch (error) {
@@ -29,7 +39,7 @@ function resetTemplateCardHome() {
 function SearchNotFoundTemplateCardHome() {
     let templateCard = document.querySelector("#TemplateCardHome");
     templateCard.innerHTML = ''
-    templateCard.innerHTML = `<div class="d-flex align-items-center justify-content-center vh-100">
+    templateCard.innerHTML = `<div class="d-flex align-items-center justify-content-center ">
     <div class="text-center">
         <h1 class="display-1 fw-bold text-light">Busqueda no encontrada</h1>
         <p class="fs-3 text-light"> <span class="text-danger">Opps!</span> Search not found.</p>
@@ -38,9 +48,11 @@ function SearchNotFoundTemplateCardHome() {
           </p>
         <a href="../pages/home.html" class="btn btn-primary">New Search</a>
     </div>
-</div>
-    `
+</div>`
+    
 }
+
+
 
 function newCard(evento) {
     let divForCard = document.createElement("div");
@@ -155,13 +167,14 @@ function templateCategoryCheckboxHome() {
 }
 
 
-function getValueCheckbox() {
+async function getValueCheckbox() {
+
+    let response = await getApi();
 
     let CheckedCategory = Array.from(document.querySelectorAll('.class_check:checked')).map(val => val.value) // obtener valor del input checked
-    let arrayHome = ApiResponse; // array de eventos inicial
-    let filtrado = ApiResponse.filter(c => CheckedCategory.includes(c.category)) // almacenar nuevo objeto filtrado 
+    let arrayHome = response.response; // array de eventos inicial
+    let filtrado = response.response.filter(c => CheckedCategory.includes(c.category)) // almacenar nuevo objeto filtrado 
 
-    console.log('filtrando category:', filtrado);
     if (CheckedCategory.length > 0) {
         resetTemplateCardHome();
         tarjetasHome(filtrado);
@@ -169,8 +182,6 @@ function getValueCheckbox() {
         resetTemplateCardHome();
         tarjetasHome(arrayHome);
     }
-
-    return filtrado;
 }
 
 
@@ -199,21 +210,6 @@ function searchCards() {
     }
 
     console.log('Filtrado:', filtrado);
-
-    if(FilterEvents.length === 0) {
-        resetTemplateCardHome();
-        SearchNotFoundTemplateCardHome();
-    }else {
-        console.log('ARRAY FILTRADO PARA MOSTRAR:',FilterEvents);
-        for (let i = 0; i < FilterEvents.length; i++) {
-            resetTemplateCardHome();
-            tarjetasHome(FilterEvents);
-        }
-    }
-    
-
-
-    // console.log('ApiResponse', dataFilter);
 
 }
 
