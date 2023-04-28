@@ -103,113 +103,61 @@
             </a>
         </div>
 
-        <div class="container mt-3 mb-2">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card shadow">
-                        <div class="card-header text-dark">
-                            <b>Stats</b>
-                        </div>
 
-                        <div class="">
-                            <table class="table table-bordered table-hover shadow">
-                                <thead>
-                                    <tr>
-                                        <td colspan="3">
-                                            <b> Events Statistics</b>
-                                        </td>
-                                    </tr>
+        <div class="container mt-5 mb-5">
+            <div class="row table-responsive">
+                <table class="table caption-top table-bordered align-middle table-sm ">
+                    <caption class="bg-black text-white"> Events Statistics </caption>
+                    <thead>
+                        <tr>
+                            <th colspan="2"> Event with the highest percentage of attendance </th>
+                            <th colspan="2"> Event with the lowest percentage of attendence </th>
+                            <th colspan="2"> Event with large capacity </th>
+                        </tr>
+                    </thead>
+                    <tbody class="StatsEvents">
+                        <tr>
+                            <td><i class="bi bi-calendar3"></i></td>
+                            <td> <i class="bi bi-percent"></i> </td>
+                            <td><i class="bi bi-calendar3"></i></td>
+                            <td> <i class="bi bi-percent"> </td>
+                            <td><i class="bi bi-calendar3"></i></td>
+                            <td> <i class="bi bi-people-fill"></i> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row table-responsive">
+                <table class="table caption-top table-bordered align-middle table-hover table-sm">
+                    <caption class="bg-black text-white"> Upcoming Events Statistics by Category </caption>
+                    <thead>
+                        <tr>
+                            <th> Category </th>
+                            <th> Revenues </th>
+                            <th> Percentage of attendence </th>
+                        </tr>
+                    </thead>
+                    <tbody class="StatsUpcoming">
 
+                    </tbody>
+                </table>
+            </div>
+            <div class="row table-responsive">
+                <table class="table caption-top table-bordered align-middle table-hover table-sm">
+                    <caption class="bg-black text-white"> Past Events Statistics by Category </caption>
+                    <thead>
+                        <tr>
+                            <th> Categories </th>
+                            <th> Revenues </th>
+                            <th> Percentage of attendance </th>
+                        </tr>
+                    </thead>
+                    <tbody class="StatsPast">
 
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Events with the highest percentage of attendance
-                                        </td>
-                                        <td>
-                                            Events with the lowest percentage of attendance
-                                        </td>
-                                        <td>
-                                            Event with larger capacity
-                                        </td>
-                                    </tr>
-                                    <tr class="alto-fila">
-                                        <td rowspan="1" colspan="1">
-                                        </td>
-                                        <td rowspan="1" colspan="1">
-                                        </td>
-                                        <td rowspan="1" colspan="1">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td rowspan="1" colspan="3">
-                                            <b>Upcoming events Statistics by category </b>
-                                        </td>
-                                    </tr>
-
-                                    <tr >
-                                        <td >Categories</td>
-                                        <td>Revenues</td>
-                                        <td>Percentage of attendance</td>
-                                    </tr>
-                                    <tr id="upcomingTemplate">
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-
-                                        <td colspan="3">
-                                            <b> Past Events by statistic by category</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="1">Categories</td>
-                                        <td colspan="1">Revenues</td>
-                                        <td colspan="1">Percentage of attendance</td>
-                                    </tr>
-                                    <tr class="alto-fila">
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr class="alto-fila">
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr class="alto-fila">
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr class="alto-fila">
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
-
         <footer class="bg-secondary text-white">
             <div class="container-fluid py-3">
                 <div class="row justify-content-between align-items-center">

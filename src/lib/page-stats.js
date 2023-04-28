@@ -1,45 +1,92 @@
-let urlApi = 'https://pro-talento.up.railway.app/api/amazing';
+const StatsUpcoming = document.querySelector('.StatsEvents');
+const StatsPast = document.querySelector('.StatsPast');
+const StatsEventsUpcoming = document.querySelector('.StatsUpcoming');
+const urlPastEvents = 'https://pro-talento.up.railway.app/api/amazing?time=past';
+const urlUpcomingEvents = 'https://pro-talento.up.railway.app/api/amazing?time=upcoming';
 
-let ApiGlobal;
+StatsDataTableUpcomingEvents(urlUpcomingEvents, StatsEventsUpcoming);
+StatsDataTablePastEvents(urlPastEvents, StatsPast);
 
-async function getApi() {
-    try {
-        let res = await fetch(urlApi)
-        res = await res.json();
-        console.log(res);
-        categoriasUnicas(res.response)
-        return res;
+async function StatsDataTablePastEvents(urlPastEvents, template) {
+    urlPastEvents = await fetch(urlPastEvents).then(response => response.json()).then(data => data.response);
+    let categorys = [...new Set(urlPastEvents.map(event => event.category))]
+    categorys.forEach((category) => {
+        let eventsRows = urlPastEvents.filter(event => event.category === category);
 
-    } catch (error) {
-        console.error(error);
-    }
+        // REVENUES - INGRESOS
+        let revenues = eventsRows.map(event => {
+            return event.price * event.assistance
+        });
+
+        let total = revenues.reduce((acc, val) => {
+            return acc + val;
+        })
+
+        // PERCENTAGES
+
+        let asistencia = eventsRows.map(event => {
+            return  event.assistance;
+        })
+
+        let capacity = eventsRows.map(event => {
+            return  event.capacity;
+        })
+
+        let acumularasistencia = asistencia.reduce((acc, val) => {
+            return acc + val;
+        })
+
+        let acumularcapacity = capacity.reduce((acc, val) => {
+            return acc + val;
+        })
+
+        let percentage = Number((acumularasistencia/acumularcapacity)*100).toFixed(2);
+        template.innerHTML += `<tr>
+                                    <td class="col-1 col-sm-1 col-md-2 col-lg-4">${category}</td>
+                                    <td class="col-1 col-sm-1 col-md-2 col-lg-4">${Number(total).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
+                                    <td class="col-1 col-sm-1 col-md-2 col-lg-4"> ${percentage}%</td>
+                                </tr>`;
+    });
 }
-getApi();
+async function StatsDataTableUpcomingEvents(urlUpcomingEvents, template) {
+    urlUpcomingEvents = await fetch(urlUpcomingEvents).then(response => response.json()).then(data => data.response);
+    let categorys = [...new Set(urlUpcomingEvents.map(event => event.category))]
 
+    categorys.forEach((category) => {
+        let eventsRows = urlUpcomingEvents.filter(event => event.category === category);
 
-// filtering data
-let categoriasUnique = new Array();
+        // REVENUES - INGRESOS
+        let revenues = eventsRows.map(event => {
+            return event.price * event.estimate
+        });
 
-function categoriasUnicas(eventos) {
+        let total = revenues.reduce((acc, val) => {
+            return acc + val;
+        })
 
-    const rowCategoryStats = document.querySelector('#upcomingTemplate');
+        // PERCENTAGES
 
-    for (let i = 0; i < eventos.length; i++) {
-        if (!categoriasUnique.includes(eventos[i].category)) {
-            categoriasUnique.push(eventos[i]);
-        }
-    }
+        let estimate = eventsRows.map(event => {
+            return  event.estimate;
+        })
 
-    for (let i = 0; i < categoriasUnique.length; i++) {
-        const rows = rowCategoryStats.innerHTML = `
-        <td>${categoriasUnique[i].category} </td>
-        <td>${categoriasUnique[i].price} </td>
-        <td>${categoriasUnique[i].capacity} </td>
-   `;
-        console.log(rows);
-       return rowCategoryStats.appendChild(rows)
+        let capacity = eventsRows.map(event => {
+            return  event.capacity;
+        })
 
-    }
+        let acumularestimate = estimate.reduce((acc, val) => {
+            return acc + val;
+        })
 
+        let acumularcapacity = capacity.reduce((acc, val) => {
+            return acc + val;
+        })
+
+        let percentage = Number((acumularestimate/acumularcapacity)*100).toFixed(2);
+        template.innerHTML += `<tr>
+                                    <td class="col-1 col-sm-1 col-md-2 col-lg-4">${category}</td>
+                                    <td class="col-1 col-sm-1 col-md-2 col-lg-4">${Number(total).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
+                                    <td class="col-1 col-sm-1 col-md-2 col-lg-4"> ${percentage}%</td>
+                                </tr>`;
+    });
 }
-
