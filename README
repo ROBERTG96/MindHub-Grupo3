@@ -1,3 +1,26 @@
 Resolución: 1920x1080
-Grupo: 3
+
+App de eventos pasados y futuros.
+
+Contenido:
+
+1. Pagina home 
+2. Pagina Upcoming Events
+3. Pagina Past Events
+4. Pagina Details 
+5. Pagina Stats
+6. Pagina Contact
+
+Funcionamiento:
+
+Dentro del funcionamiento de nuestra aplicacion se pueden visualizar en forma de carousell el listado de eventos y presentaciones realizados entre el año 
+2019 - 2022 en las cuales podrás ver el detalle de los eventos y realizar solicitudes en todo momento, aprovechando que tenemos eventos futuros podrás
+eliger entre todas las categorias el o los eventos donde quieres asistir.
+
+A partir del buscador podrás encontrar eventos pasados, futuros e incluso cruzar con múltiples categorias que te ayudarán a ser mas preciso en tu busqueda.
+
+También puedes visualizar la estadistica de todas nuestras categorias de eventos, ingresos y asistencias por eventos.
+
+Este proyecto fue trabajado y desarrollo por:
+Grupo: #3
 Integrantes del proyecto: Akwe - Andy - Robert
