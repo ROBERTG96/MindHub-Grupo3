@@ -163,8 +163,6 @@ label {
 
 /* ================HOME PAGE================== */
 
-
-
 .card .btn {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
@@ -271,7 +269,6 @@ button.carousel-control-prev,
 .carousel-control-next {
     width: 2%;
 }
-
 
 ol.carousel-indicators {
     top: 100%;
@@ -400,7 +397,18 @@ p {
 
 /* category */
 
-
 img {
     object-fit: cover !important;
+}
+
+
+/*****************STATS*******************/
+
+th,
+td {
+    text-align: center;
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--secondary-color);
 }
