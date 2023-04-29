@@ -138,7 +138,6 @@ fetch(url)
                 maxCapacityEvent = { name: event.name, capacity: event.capacity };
             }
 
-            /*    console.log(`Nombre del evento: ${event.name} - Capacidad: ${event.capacity}`); */
         });
 
         let maxCapacityCell = document.getElementById('maxLargeCapacityEventCell');
