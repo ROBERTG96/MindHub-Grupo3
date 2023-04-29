@@ -1,6 +1,7 @@
 const StatsUpcoming = document.querySelector('.StatsEvents');
 const StatsPast = document.querySelector('.StatsPast');
 const StatsEventsUpcoming = document.querySelector('.StatsUpcoming');
+const url = 'https://pro-talento.up.railway.app/api/amazing';
 const urlPastEvents = 'https://pro-talento.up.railway.app/api/amazing?time=past';
 const urlUpcomingEvents = 'https://pro-talento.up.railway.app/api/amazing?time=upcoming';
 
@@ -98,6 +99,8 @@ fetch(urlPastEvents)
     .then(data => {
         let maxAttendanceEvent = { name: null, percentage: 0 };
         let minAttendanceEvent = { name: null, percentage: 1 };
+
+
         data.response.forEach(event => {
             const percentage = event.assistance / event.capacity;
             if (percentage > maxAttendanceEvent.percentage) {
@@ -106,15 +109,40 @@ fetch(urlPastEvents)
             if (percentage < minAttendanceEvent.percentage) {
                 minAttendanceEvent = { name: event.name, percentage: percentage };
             }
+
+            /*    console.log(`Nombre del evento: ${event.name} - Capacidad: ${event.capacity}`); */
         });
+
         let maxAttendanceCell = document.getElementById('maxAttendanceCell');
         maxAttendanceCell.textContent = maxAttendanceEvent.name;
         let maxAttendancePercentageCell = document.getElementById('maxAttendancePercentageCell');
-        let percentageText = (maxAttendanceEvent.percentage * 100).toFixed(2);
-        maxAttendancePercentageCell.textContent = percentageText;
+        maxAttendancePercentageCell.textContent = (maxAttendanceEvent.percentage * 100).toFixed(2) + '%';
+
         let minAttendanceCell = document.getElementById('minAttendanceCell');
         minAttendanceCell.textContent = minAttendanceEvent.name;
         let minAttendancePercentageCell = document.getElementById('minAttendancePercentageCell');
-        let percentageText2 = (minAttendanceEvent.percentage * 100).toFixed(2);
-        minAttendancePercentageCell.textContent = percentageText2;
+        minAttendancePercentageCell.textContent = (minAttendanceEvent.percentage * 100).toFixed(2) + '%';
+
+
+    });
+
+
+
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        let maxCapacityEvent = { name: null, capacity: 0 };
+
+        data.response.forEach(event => {
+            if (event.capacity > maxCapacityEvent.capacity) {
+                maxCapacityEvent = { name: event.name, capacity: event.capacity };
+            }
+
+            /*    console.log(`Nombre del evento: ${event.name} - Capacidad: ${event.capacity}`); */
+        });
+
+        let maxCapacityCell = document.getElementById('maxLargeCapacityEventCell');
+        maxCapacityCell.textContent = maxCapacityEvent.name;
+        let capacityCell = document.getElementById('capacityEventCell');
+        capacityCell.textContent = maxCapacityEvent.capacity;
     });
